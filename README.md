@@ -29,21 +29,17 @@ python -m http.server 8933
 على الموقع الحقيقي (بعد الرفع على Netlify) الزرار بيحمّل ملف `Mahmoud-Atef-CV.pdf` مباشرة زي أي رابط تحميل عادي.
 على نسخة المعاينة (claude.ai) — لو فتحته من نفس اللينك اللي بعتهولك — الموقع بيستخدم صلاحية تحميل خاصة ببيئة كلود عشان يشتغل الزرار هناك كمان (هيسألك تأكيد قبل ما ينزّل الملف، ده طبيعي).
 
-## النشر على دومين (زي مشروع البورتفوليو التاني)
+## النشر على دومين
 
-مشروعك التاني متوصل بـ GitHub وNetlify (بيرفع تلقائي بمجرد `git push`). نفس الطريقة هنا:
+الريبو اتعمل واتدفع فعلاً على حسابك:
+[github.com/MohamedAli33/mahmoud-atef-lawyer](https://github.com/MohamedAli33/mahmoud-atef-lawyer)
 
-1. اعمل repo جديد على GitHub (فاضي، من غير README).
-2. من الفولدر ده:
-   ```bash
-   git init
-   git add -A
-   git commit -m "Initial site"
-   git branch -M main
-   git remote add origin <رابط الريبو بتاعك>
-   git push -u origin main
-   ```
-3. على [netlify.com](https://netlify.com): New site from Git → اختار الريبو ده → مفيش build command، الـ publish directory هو الفولدر الرئيسي (`.`).
-4. من إعدادات الموقع على Netlify: Domain settings → Add custom domain، واتبع تعليماتهم لتوجيه الدومين (DNS) بتاعك.
+باقي خطوة وحدة بس، وهي ربطه بـ Netlify (محتاجة تسجيل دخولك، فمش قادر أعملها من هنا):
 
-أنا معنديش وصول لحساب GitHub أو Netlify أو الدومين بتاعك، فالخطوات دي أنت اللي تعملها. لو عايز أعمل الـ `git init` والـ commit المحلي (بدون push) قولي.
+1. افتح اللينك ده وهو هيجهزلك الريبو جاهز:
+   [app.netlify.com/start/deploy?repository=https://github.com/MohamedAli33/mahmoud-atef-lawyer](https://app.netlify.com/start/deploy?repository=https://github.com/MohamedAli33/mahmoud-atef-lawyer)
+2. سجّل دخولك بنفس حساب GitHub بتاعك لو طلب منك، ووافق على الصلاحية.
+3. مفيش build command ولا build directory تحتاج تغيّرها — سيبها فاضية واضغط **Deploy site**.
+4. Netlify هيديك سب-دومين مجاني تلقائي زي `mahmoud-atef-lawyer.netlify.app` (تقدر تغيّر الاسم من Site settings → Change site name).
+
+بعد كده أي `git push` جديد على الريبو ده هيرفع الموقع تلقائي، زي مشروعك التاني بالظبط.
