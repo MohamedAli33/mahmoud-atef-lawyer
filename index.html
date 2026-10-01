@@ -324,6 +324,21 @@
     #cvDownload .btn-label{ display:none; }
     .bar-inner .btn{ padding:9px; }
   }
+
+  /* ---------- scroll to top ---------- */
+  .scroll-top{
+    position:fixed; bottom:24px; inset-inline-end:24px; z-index:60;
+    width:46px; height:46px; border-radius:50%; padding:0;
+    border:1px solid var(--frame-gold); background:var(--gold); color:var(--frame-ink);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    box-shadow:0 14px 28px -12px var(--shadow);
+    opacity:0; visibility:hidden; transform:translateY(12px);
+    transition:opacity .25s ease, transform .25s ease, visibility .25s ease, background .2s ease;
+  }
+  .scroll-top.visible{ opacity:1; visibility:visible; transform:translateY(0); }
+  .scroll-top:hover{ background:var(--gold-soft); }
+  .scroll-top svg{ width:20px; height:20px; }
+  @media (max-width:480px){ .scroll-top{ width:42px; height:42px; bottom:16px; inset-inline-end:16px; } }
 </style>
 </head>
 <body>
@@ -812,14 +827,23 @@
   </div>
 </div>
 
+<button type="button" class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top / العودة لأعلى الصفحة">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
 </div>
 
 <script>
   (function(){
     var bar = document.getElementById('topbar');
+    var scrollTopBtn = document.getElementById('scrollTopBtn');
     window.addEventListener('scroll', function(){
       bar.classList.toggle('scrolled', window.scrollY > 8);
+      scrollTopBtn.classList.toggle('visible', window.scrollY > 480);
     }, { passive:true });
+    scrollTopBtn.addEventListener('click', function(){
+      window.scrollTo({ top:0, behavior:'smooth' });
+    });
 
     var navToggle = document.getElementById('navToggle');
     var navLinks = document.getElementById('navLinks');
