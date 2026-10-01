@@ -224,6 +224,47 @@
   .cred-col h3{ font-family:var(--font-ui); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-2); font-weight:600; margin-bottom:4px; }
   #site[data-lang="ar"] .cred-col h3{ text-transform:none; letter-spacing:0; }
 
+  /* ---------- certificate gallery ---------- */
+  .cert-gallery{ margin-top:clamp(36px,5vw,56px); padding-top:clamp(28px,4vw,40px); border-top:1px solid var(--line); }
+  .cert-gallery-head h3{ font-family:var(--font-display); font-size:1.15rem; font-weight:600; }
+  .cert-gallery-head p{ margin-top:4px; color:var(--ink-2); font-size:.88rem; }
+  .cert-grid-thumbs{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:20px; }
+  .cert-thumb{
+    position:relative; aspect-ratio:3/4; border:1px solid var(--line); background:var(--surface);
+    padding:0; overflow:hidden; cursor:pointer; font-family:var(--font-ui); text-align:start;
+    transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .cert-thumb:hover, .cert-thumb:focus-visible{ border-color:var(--gold); transform:translateY(-3px); box-shadow:0 14px 28px -18px var(--shadow); }
+  .cert-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .cert-thumb-cap{
+    position:absolute; inset-inline:0; bottom:0; padding:8px 10px; font-size:.74rem; font-weight:600; color:#f3ead9;
+    background:linear-gradient(to top, rgba(18,22,28,.92), rgba(18,22,28,0));
+  }
+  @media (max-width:920px){ .cert-grid-thumbs{ grid-template-columns:repeat(2,1fr); } }
+
+  .cert-modal{ position:fixed; inset:0; z-index:100; display:none; align-items:center; justify-content:center; padding:20px; }
+  .cert-modal.open{ display:flex; }
+  .cert-modal-backdrop{ position:absolute; inset:0; background:rgba(10,8,4,.72); }
+  .cert-modal-card{
+    position:relative; z-index:1; background:var(--paper); border:1px solid var(--frame-gold); max-width:860px; width:100%;
+    max-height:88vh; overflow:auto; display:grid; grid-template-columns:1.1fr 1fr; box-shadow:0 30px 60px -20px rgba(0,0,0,.5);
+  }
+  .cert-modal-img{ background:var(--frame-ink); display:flex; align-items:center; justify-content:center; min-height:220px; }
+  .cert-modal-img img{ width:100%; height:100%; object-fit:contain; max-height:88vh; }
+  .cert-modal-body{ padding:clamp(20px,3vw,32px); display:flex; flex-direction:column; gap:10px; }
+  .cert-modal-body h3{ font-family:var(--font-display); font-size:1.3rem; font-weight:600; }
+  .cert-modal-issuer{ color:var(--gold); font-size:.92rem; font-weight:600; }
+  .cert-modal-meta{ color:var(--ink-2); font-size:.9rem; }
+  .cert-modal-link{ margin-top:10px; font-size:.84rem; font-weight:600; color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+  .cert-modal-close{
+    position:absolute; top:10px; inset-inline-end:10px; z-index:2; width:34px; height:34px; border-radius:50%;
+    border:1px solid var(--line); background:var(--surface); color:var(--ink); display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+  }
+  .cert-modal-close:hover{ border-color:var(--gold); color:var(--gold); }
+  .cert-modal-close svg{ width:16px; height:16px; }
+  @media (max-width:720px){ .cert-modal-card{ grid-template-columns:1fr; } .cert-modal-img img{ max-height:40vh; } }
+
   /* ---------- skills ---------- */
   .skills-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(24px,4vw,40px); }
   .skill-col h3{ font-family:var(--font-ui); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-2); font-weight:600; margin-bottom:16px; }
@@ -598,6 +639,70 @@
           </div>
         </div>
       </div>
+
+      <div class="cert-gallery">
+        <div class="cert-gallery-head">
+          <h3><span class="i18n" data-lang="ar">المستندات والشهادات</span><span class="i18n" data-lang="en" hidden>Documents &amp; Certificates</span></h3>
+          <p><span class="i18n" data-lang="ar">اضغط على أي شهادة لعرضها بالتفاصيل.</span><span class="i18n" data-lang="en" hidden>Click any certificate to view it in detail.</span></p>
+        </div>
+        <div class="cert-grid-thumbs">
+          <button type="button" class="cert-thumb" data-img="images/cert-diploma.jpg"
+            data-title-ar="دبلوم القانون العام" data-title-en="Diploma in General Law"
+            data-issuer-ar="كلية الحقوق، جامعة المنصورة" data-issuer-en="Faculty of Law, Mansoura University"
+            data-meta-ar="تقدير امتياز (A) — معدل تراكمي 4.525 من 5 — فصل الربيع 2026" data-meta-en="Grade: Excellent (A) — GPA 4.525 / 5 — Spring 2026 term">
+            <img src="images/cert-diploma.jpg" alt="دبلوم القانون العام" loading="lazy">
+            <span class="cert-thumb-cap"><span class="i18n" data-lang="ar">دبلوم القانون العام</span><span class="i18n" data-lang="en" hidden>Diploma in General Law</span></span>
+          </button>
+
+          <button type="button" class="cert-thumb" data-img="images/cert-llb.jpg"
+            data-title-ar="شهادة تخرج — بكالوريوس الحقوق" data-title-en="Graduation Certificate — Bachelor of Laws"
+            data-issuer-ar="كلية الحقوق، جامعة المنصورة" data-issuer-en="Faculty of Law, Mansoura University"
+            data-meta-ar="تقدير جيد (72.17٪) — نظام الساعات المعتمدة، 155 ساعة — دور مايو 2024" data-meta-en="Grade: Good (72.17%) — Credit-hour system, 155 hours — May 2024 session">
+            <img src="images/cert-llb.jpg" alt="شهادة تخرج بكالوريوس الحقوق" loading="lazy">
+            <span class="cert-thumb-cap"><span class="i18n" data-lang="ar">بكالوريوس الحقوق</span><span class="i18n" data-lang="en" hidden>Bachelor of Laws</span></span>
+          </button>
+
+          <button type="button" class="cert-thumb" data-img="images/cert-corporate-law.jpg"
+            data-title-ar="دورة قانون الشركات" data-title-en="Corporate Law Course"
+            data-issuer-ar="الجامعة البريطانية في مصر، بالتعاون مع كلية الحقوق" data-issuer-en="The British University in Egypt, with the Faculty of Law"
+            data-meta-ar="10 ساعات تدريبية — من 18 إلى 25 يوليو 2026" data-meta-en="10 training hours — 18 to 25 July 2026">
+            <img src="images/cert-corporate-law.jpg" alt="دورة قانون الشركات" loading="lazy">
+            <span class="cert-thumb-cap"><span class="i18n" data-lang="ar">دورة قانون الشركات</span><span class="i18n" data-lang="en" hidden>Corporate Law Course</span></span>
+          </button>
+
+          <button type="button" class="cert-thumb" data-img="images/cert-arbitration-mediation.jpg"
+            data-title-ar="برنامج التحكيم والوساطة" data-title-en="Arbitration and Mediation Program"
+            data-issuer-ar="العيادة القانونية، كلية الحقوق، جامعة المنصورة" data-issuer-en="Legal Clinic, Faculty of Law, Mansoura University"
+            data-meta-ar="بالنسخة الإنجليزية — من 19 فبراير إلى 3 أغسطس 2023" data-meta-en="English version — 19 February to 3 August 2023">
+            <img src="images/cert-arbitration-mediation.jpg" alt="برنامج التحكيم والوساطة" loading="lazy">
+            <span class="cert-thumb-cap"><span class="i18n" data-lang="ar">التحكيم والوساطة</span><span class="i18n" data-lang="en" hidden>Arbitration &amp; Mediation</span></span>
+          </button>
+
+          <button type="button" class="cert-thumb" data-img="images/cert-national-security.jpg"
+            data-title-ar="دورة الدراسات الاستراتيجية والأمن القومي رقم 104" data-title-en="Strategic Studies and National Security Course No. 104"
+            data-issuer-ar="الكلية الحربية المصرية — الأكاديمية العسكرية للدراسات العليا والاستراتيجية" data-issuer-en="Egyptian Military Academy for Higher and Strategic Studies"
+            data-meta-ar="عام 2023" data-meta-en="2023">
+            <img src="images/cert-national-security.jpg" alt="دورة الدراسات الاستراتيجية والأمن القومي" loading="lazy">
+            <span class="cert-thumb-cap"><span class="i18n" data-lang="ar">الدراسات الاستراتيجية والأمن القومي</span><span class="i18n" data-lang="en" hidden>Strategic Studies &amp; National Security</span></span>
+          </button>
+
+          <button type="button" class="cert-thumb" data-img="images/cert-digital-transformation.jpg"
+            data-title-ar="شهادة أساسيات التحول الرقمي" data-title-en="Digital Transformation Fundamentals Certificate"
+            data-issuer-ar="الوحدة المركزية لتدريب تكنولوجيا المعلومات (CUIT)" data-issuer-en="Central Unit for IT Training (CUIT)"
+            data-meta-ar="الأمن السيبراني، تكنولوجيا المعلومات وحزمة مايكروسوفت أوفيس — سارية من 06/2026 حتى 05/2031" data-meta-en="Cybersecurity, IT and MS Office — valid from 06/2026 to 05/2031">
+            <img src="images/cert-digital-transformation.jpg" alt="شهادة أساسيات التحول الرقمي" loading="lazy">
+            <span class="cert-thumb-cap"><span class="i18n" data-lang="ar">أساسيات التحول الرقمي</span><span class="i18n" data-lang="en" hidden>Digital Transformation</span></span>
+          </button>
+
+          <button type="button" class="cert-thumb" data-img="images/cert-experience-letter.jpg"
+            data-title-ar="خطاب خبرة" data-title-en="Experience Letter"
+            data-issuer-ar="مكتب عمرو فاروق خطاب للمحاماة والاستشارات القانونية" data-issuer-en="Amr Farouk Khattab Law Firm and Legal Consultancy"
+            data-meta-ar="يفيد بعمله واستمراره بالمكتب" data-meta-en="Confirms his employment and continued work at the firm">
+            <img src="images/cert-experience-letter.jpg" alt="خطاب خبرة من مكتب عمرو فاروق خطاب للمحاماة" loading="lazy">
+            <span class="cert-thumb-cap"><span class="i18n" data-lang="ar">خطاب خبرة</span><span class="i18n" data-lang="en" hidden>Experience Letter</span></span>
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -695,6 +800,24 @@
   </div>
 </footer>
 
+<div class="cert-modal" id="certModal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="cert-modal-backdrop" id="certModalBackdrop"></div>
+  <div class="cert-modal-card">
+    <button type="button" class="cert-modal-close" id="certModalClose" aria-label="Close / إغلاق">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="cert-modal-img"><img id="certModalImg" src="" alt=""></div>
+    <div class="cert-modal-body">
+      <h3 id="certModalTitle"></h3>
+      <p class="cert-modal-issuer" id="certModalIssuer"></p>
+      <p class="cert-modal-meta" id="certModalMeta"></p>
+      <a id="certModalOpen" href="#" target="_blank" rel="noopener" class="cert-modal-link">
+        <span class="i18n" data-lang="ar">فتح الصورة في تبويب جديد</span><span class="i18n" data-lang="en" hidden>Open image in a new tab</span>
+      </a>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <script>
@@ -726,6 +849,43 @@
       if(e.key === 'Escape') closeMenu();
     });
     window.matchMedia('(min-width: 921px)').addEventListener('change', closeMenu);
+
+    // certificate gallery modal
+    var certModal = document.getElementById('certModal');
+    var certModalImg = document.getElementById('certModalImg');
+    var certModalTitle = document.getElementById('certModalTitle');
+    var certModalIssuer = document.getElementById('certModalIssuer');
+    var certModalMeta = document.getElementById('certModalMeta');
+    var certModalOpen = document.getElementById('certModalOpen');
+
+    function currentLang(){ return document.getElementById('site').getAttribute('data-lang'); }
+
+    function openCertModal(thumb){
+      var lang = currentLang();
+      var img = thumb.getAttribute('data-img');
+      certModalImg.src = img;
+      certModalImg.alt = thumb.getAttribute('data-title-' + lang) || '';
+      certModalTitle.textContent = thumb.getAttribute('data-title-' + lang) || '';
+      certModalIssuer.textContent = thumb.getAttribute('data-issuer-' + lang) || '';
+      certModalMeta.textContent = thumb.getAttribute('data-meta-' + lang) || '';
+      certModalOpen.href = img;
+      certModal.classList.add('open');
+      certModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCertModal(){
+      certModal.classList.remove('open');
+      certModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.cert-thumb').forEach(function (btn) {
+      btn.addEventListener('click', function () { openCertModal(btn); });
+    });
+    document.getElementById('certModalClose').addEventListener('click', closeCertModal);
+    document.getElementById('certModalBackdrop').addEventListener('click', closeCertModal);
+    window.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && certModal.classList.contains('open')) closeCertModal();
+    });
 
     var TITLES = { ar:'محمود عاطف | محامٍ', en:'Mahmoud Atef | Attorney at Law' };
 
